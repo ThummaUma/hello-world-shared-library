@@ -30,7 +30,7 @@ def call(Map config) {
             sed -i 's/tag:.*/tag: "${imageTag}"/' ${valuesFile}
             git add ${valuesFile}
             git commit -m "Update image tag to ${imageTag}" || echo "No changes to commit"
-            git push origin main
+            git push origin HEAD:main
         """
     }
     
