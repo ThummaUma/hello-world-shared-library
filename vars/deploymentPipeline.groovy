@@ -1,5 +1,5 @@
 // vars/deploymentPipeline.groovy
-// Orchestrates: checkoutCode -> sonarScan -> buildImage -> pushImage -> updateManifest
+// Orchestrates: checkoutCode -> sonarScan -> owaspScan -> buildImage -> pushImage -> updateManifest
 // ArgoCD (already running, auto-sync enabled) deploys after updateManifest pushes.
 def call(Map config) {
     def imageTag = params.IMAGE_TAG?.trim() ? params.IMAGE_TAG.trim()
@@ -9,6 +9,9 @@ def call(Map config) {
         branch : env.REF_NAME
     ])
     sonarScan([
+        projectKey: 'hello-world-app'
+    ])
+    owaspScan([
         projectKey: 'hello-world-app'
     ])
     if (!params.SKIP_DOCKER_BUILD) {
