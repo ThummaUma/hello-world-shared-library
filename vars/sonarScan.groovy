@@ -9,7 +9,7 @@ def call(Map config) {
             ${scannerHome}/bin/sonar-scanner \
               -Dsonar.projectKey=${config.projectKey} \
               -Dsonar.sources=. \
-              -Dsonar.exclusions=dependency-check-report.html,**/*.html \
+              -Dsonar.exclusions=**/dependency-check-*,**/*.html,**/*.xml \
               -Dsonar.host.url=${env.SONAR_HOST_URL} \
               -Dsonar.token=${env.SONAR_AUTH_TOKEN}
         """
